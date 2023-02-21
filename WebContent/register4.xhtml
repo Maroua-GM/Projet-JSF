@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<h:outputStylesheet library="css" name="table-style.css" />
+</h:head>
+
+<body>
+	<!-- le formulaire qui nous permet d'ajouter un utilisateur -->
+	<h:form>
+		<h4>
+			Formulaire JSF d'inscription à l' <a href="https//www.doranc.fr">Ecole
+				Doranco</a>
+		</h4>
+		<table>
+			<tr>
+				<td>Nom:</td>
+				<td><h:inputText value="#{userBean.nom}" required="true"
+						requiredMessage="le nom est obligatoire" id="nom"></h:inputText> <h:message
+						for="nom" style="color:red"></h:message></td>
+			</tr>
+			<tr>
+				<td>Prenom:</td>
+				<td><h:inputText value="#{userBean.prenom}" required="true"
+						requiredMessage="le prenom est obligatoire" id="prenom"></h:inputText>
+					<h:message for="prenom" style="color:red"></h:message></td>
+			</tr>
+			<tr>
+				<td>Date de naissance:</td>
+				<td><h:inputText id="dateNaissance"
+						value="#{userBean.dateNaissance}" required="true"
+						requiredMessage="la date de naissance est obligatoire">
+						<f:convertDateTime type="date" pattern="dd.MM.yyyy" />
+					</h:inputText>(dd.MM.yyyy) <h:message for="dateNaissance" style="color:red"></h:message></td>
+			</tr>
+
+			<tr>
+				<td>Sexe:</td>
+				<td><h:selectOneRadio value="#{userBean.genre}" required="true"
+						requiredMessage="le sexe est obligatoire" id="genre">
+						<f:selectItem itemLabel="Homme" itemValue="homme" />
+						<f:selectItem itemLabel="Femme" itemValue="femme" />
+					</h:selectOneRadio> <h:message for="genre" style="color:red"></h:message></td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td><h:inputText value="#{userBean.email}" required="true"
+						requiredMessage="email obligatoire" id="email"></h:inputText> <h:message
+						for="email" style="color:red" /></td>
+			</tr>
+			<tr>
+				<td>Qualité de service:</td>
+				<td><h:selectOneMenu value="#{userBean.niveauDeService}">
+						<f:selectItem itemLabel="Basic" itemValue="basic"></f:selectItem>
+						<f:selectItem itemLabel="Medium" itemValue="medium"></f:selectItem>
+						<f:selectItem itemLabel="Premium" itemValue="premium"></f:selectItem>
+					</h:selectOneMenu></td>
+			</tr>
+			<tr>
+				<td>Télephone</td>
+				<td><h:inputText value="#{userBean.telephone}" required="true"
+						requiredMessage="le telephone est oblgatoire" id="telephone"></h:inputText>
+					<h:message for="telephone" style="color:red" /></td>
+			</tr>
+			<tr>
+				<td>Fonction Actuelle:</td>
+				<td><h:selectOneMenu value="#{userBean.fonctionActuelle}">
+						<f:selectItem itemLabel="Agent de service"
+							itemValue="Agent de service"></f:selectItem>
+						<f:selectItem itemLabel="Technicien" itemValue="Technicien"></f:selectItem>
+						<f:selectItem itemLabel="Caissier" itemValue="Caissier"></f:selectItem>
+						<f:selectItem itemLabel="En chomage" itemValue="En chomage"></f:selectItem>
+						<f:selectItem itemLabel="Autre" itemValue="Autre"></f:selectItem>
+					</h:selectOneMenu></td>
+			</tr>
+			<tr>
+				<td>Disponible:</td>
+				<td><h:selectOneRadio value="#{userBean.disponible}"
+						required="true" id="disponible"
+						requiredMessage="la disponibilité est obligatoire">
+						<f:selectItem itemLabel="Oui" itemValue="Oui" />
+						<f:selectItem itemLabel="Non" itemValue="Non" />
+					</h:selectOneRadio> <h:message for="disponible" style="color:red"></h:message></td>
+			</tr>
+		</table>
+		<p>
+			<h:commandButton value="Inscription"
+				action="#{userBean.inscription()}" />
+		</p>
+
+	</h:form>
+	<!-- Ajouter les adresses -->
+	<h:form>
+		<h4>Adresses</h4>
+		<table>
+			<tr>
+				<td>N°:</td>
+				<td><h:inputText id="numero" value="#{adresseBean.numero}"
+						size="2" required="true"
+						requiredMessage="le numero d'adresse est obligatoire"></h:inputText>
+					<h:message for="numero" style="color:red"></h:message></td>
+			</tr>
+			<tr>
+				<td>Rue:</td>
+				<td><h:inputText id="rue" value="#{adresseBean.rue}" size="45"
+						required="true" requiredMessage="rue est obligatoire"></h:inputText>
+					<h:message for="rue" style="color:red"></h:message></td>
+			</tr>
+			<tr>
+				<td>Ville:</td>
+				<td><h:selectOneMenu id="ville" value="#{adresseBean.ville}"
+						required="true" requiredMessage="la ville est obligatoire !">
+						<f:selectItems value="#{adresseBean.getListeVille()}"></f:selectItems>
+					</h:selectOneMenu> <h:message for="ville" style="color:red"></h:message></td>
+			</tr>
+			<tr>
+				<td>Code Postal:</td>
+				<td><h:inputText id="codePostal"
+						value="#{adresseBean.codePostal}" size="15" required="true"
+						requiredMessage="code postal est obligatoire"></h:inputText> <h:message
+						for="codePostal" style="color:red"></h:message></td>
+			</tr>
+		</table>
+		<p>
+			<h:commandButton value="Ajouter l'adresse"
+				action="#{adresseBean.addAdresse()}" />
+		</p>
+	</h:form>
+	<!-- la liste des adresses ajoutés -->
+	<h:form>
+		<h4>la liste des adresses</h4>
+		<h:dataTable id="dataTable" value="#{adresseBean.adresseList}"
+			var="u" styleClass="order-table" headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-even-row">
+			<h:column>
+				<f:facet name="header">N°</f:facet>
+				<h:outputText value="#{u.numero}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Rue</f:facet>
+				<h:outputText value="#{u.rue}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Ville</f:facet>
+				<h:outputText value="#{u.ville}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Code Postal</f:facet>
+				<h:outputText value="#{u.codePostal}"></h:outputText>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+	<!-- la listes des utilisateurs ajoutes -->
+	<h:form>
+		<h4>Listes des participants inscrits</h4>
+		<h:dataTable value="#{userBean.userList}" var="o"
+			styleClass="order-table" headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-even-row">
+			<h:column>
+				<f:facet name="header">Prénom</f:facet>
+				<h:outputText value="#{o.prenom}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Nom</f:facet>
+				<h:outputText value="#{o.nom}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Email</f:facet>
+				<h:outputText value="#{o.email}"></h:outputText>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Date de naissance</f:facet>
+				<h:outputText value="#{o.dateNaissance}">
+					<f:convertDateTime type="date" pattern="dd.MM.yyyy" />
+				</h:outputText>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Disponible</f:facet>
+				<h:outputText value="#{o.disponible}"></h:outputText>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Telephone</f:facet>
+				<h:outputText value="#{o.telephone}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Fonction Actuelle</f:facet>
+				<h:outputText value="#{o.fonctionActuelle}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Niveau de service</f:facet>
+				<h:outputText value="#{o.niveauDeService}"></h:outputText>
+			</h:column>
+				<h:column>
+				<f:facet name="header">Adresse</f:facet>
+				<h:outputText value="#{o.adresses.get(0).getVille()}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Action</f:facet>
+				<h:commandButton value="Supprimer"
+					action="#{userBean.deleteAction(o)}" />
+			</h:column>
+			
+		</h:dataTable>
+	</h:form>
+
+</body>
+
+
+
+</html>

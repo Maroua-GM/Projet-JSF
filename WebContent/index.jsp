@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>doranco </title>
 </head>
 <body>
-	<jsp:forward page="/faces/register3.xhtml"></jsp:forward>
+	<jsp:forward page="/faces/main4.xhtml"></jsp:forward>
 </body>
 </html>
