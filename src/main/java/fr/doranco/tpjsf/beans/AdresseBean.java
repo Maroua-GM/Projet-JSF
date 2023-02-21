@@ -1,5 +1,6 @@
 package fr.doranco.tpjsf.beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +12,7 @@ import fr.doranco.tpjsf.entity.Adresse;
 
 @ManagedBean(name = "adresseBean")
 @SessionScoped
-public class AdresseBean {
+public class AdresseBean implements Serializable {
 
 	private short numero;
 	private String rue;
@@ -24,9 +25,9 @@ public class AdresseBean {
 		return adresseList;
 	}
 
-	public static List<Adresse> getAdresselist() {
-		return adresseList;
-	}
+//	public static List<Adresse> getAdresselist() {
+//		return adresseList;
+//	}
 
 	public AdresseBean() {
 	}

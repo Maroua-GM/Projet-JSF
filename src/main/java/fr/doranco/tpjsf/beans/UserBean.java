@@ -1,5 +1,6 @@
 package fr.doranco.tpjsf.beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -14,7 +15,10 @@ import fr.doranco.tpjsf.entity.User;
 
 @ManagedBean(name = "userBean")
 @SessionScoped
-public class UserBean {
+public class UserBean implements Serializable {
+
+	@ManagedProperty(value = "#{adresseBean}")
+	private AdresseBean adresseBean;
 
 	@ManagedProperty(value = "DUPOND")
 	private String nom;
@@ -36,6 +40,14 @@ public class UserBean {
 	private String disponible;
 	private List<String> langageSouhaites;
 
+	public AdresseBean getAdresseBean() {
+		return adresseBean;
+	}
+
+	public void setAdresseBean(AdresseBean adresseBean) {
+		this.adresseBean = adresseBean;
+	}
+
 	private static final List<User> userList = new ArrayList<User>(Arrays.asList(
 //			new User("Benoit", "Leclerc", "1977/10/27", "homme", "benoit@doranco.fr", "medium", "adresse1",
 //					"0101010101", "agent", "oui"),
@@ -52,12 +64,17 @@ public class UserBean {
 		return userList;
 	}
 
+	public void addUser() {
+		User user = new User();
+
+	}
+
 	public void inscription() {
 
 		User user = new User(this.nom, this.prenom, this.dateNaissance, this.genre, this.email, this.niveauDeService,
 				this.telephone, this.fonctionActuelle, this.disponible);
 
-		for (Adresse adresse : AdresseBean.getAdresselist()) {
+		for (Adresse adresse : adresseBean.getAdresseList()) {
 			user.getAdresses().add(adresse);
 		}
 		userList.add(user);
