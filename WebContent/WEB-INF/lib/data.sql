@@ -20,7 +20,7 @@ USE `doranco-bd` ;
 DROP TABLE IF EXISTS `doranco-bd`.`User` ;
 
 CREATE TABLE IF NOT EXISTS `doranco-bd`.`User` (
-  `idUser` INT NOT NULL,
+  `idUser` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NOT NULL,
   `prenom` VARCHAR(45) NOT NULL,
   `sexe` VARCHAR(6) NOT NULL,
@@ -30,7 +30,10 @@ CREATE TABLE IF NOT EXISTS `doranco-bd`.`User` (
   `telephone` VARCHAR(12) NOT NULL,
   `disponible` VARCHAR(45) NOT NULL,
   `fonction_Actuelle` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idUser`))
+  PRIMARY KEY (`idUser`),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+  UNIQUE INDEX `telephone_UNIQUE` (`telephone` ASC) VISIBLE,
+  UNIQUE INDEX `cle_unique` (`nom` ASC, `prenom` ASC, `date_naissance` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
@@ -67,6 +70,7 @@ CREATE TABLE IF NOT EXISTS `doranco-bd`.`Langage` (
   `User_idUser` INT NOT NULL,
   PRIMARY KEY (`idLangage`),
   INDEX `fk_Langage_User1_idx` (`User_idUser` ASC) VISIBLE,
+  UNIQUE INDEX `cle_unique` (`User_idUser` ASC, `languge` ASC) VISIBLE,
   CONSTRAINT `fk_Langage_User1`
     FOREIGN KEY (`User_idUser`)
     REFERENCES `doranco-bd`.`User` (`idUser`)

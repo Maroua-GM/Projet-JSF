@@ -40,6 +40,7 @@ public class UserBean implements Serializable {
 	private String disponible;
 	private List<String> langageSouhaites;
 
+//injection de l'adresse managed bean
 	public AdresseBean getAdresseBean() {
 		return adresseBean;
 	}
@@ -76,14 +77,10 @@ public class UserBean implements Serializable {
 
 		for (Adresse adresse : adresseBean.getAdresseList()) {
 			user.getAdresses().add(adresse);
+			this.adresses.add(adresse);
 		}
 		userList.add(user);
 
-	}
-
-	public void addAdresse() {
-		Adresse adresse = new Adresse((short) 4, "qsdsqd", "qsdqsds", "qsdd");
-		this.adresses.add(adresse);
 	}
 
 	public void deleteAction(User user) {
@@ -128,7 +125,7 @@ public class UserBean implements Serializable {
 	}
 
 	public UserBean() {
-
+		adresses = new ArrayList<Adresse>();
 	}
 
 	public String getNom() {
@@ -159,8 +156,13 @@ public class UserBean implements Serializable {
 		this.dateNaissance = dateNaissance;
 	}
 
-	public List<Adresse> getAdresses() {
-		return adresses;
+	public String get() {
+		String chaine = "";
+		for (Adresse adresse : this.adresses) {
+			chaine += adresse + "\n\r";
+
+		}
+		return chaine;
 	}
 
 	public void setGenre(String genre) {

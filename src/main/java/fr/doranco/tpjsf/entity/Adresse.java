@@ -52,9 +52,8 @@ public class Adresse {
 
 	@Override
 	public String toString() {
-		return "Adresse [numero=" + numero + ", " + (rue != null ? "rue=" + rue + ", " : "")
-				+ (codePostal != null ? "codePostal=" + codePostal + ", " : "")
-				+ (ville != null ? "ville=" + ville : "") + "]";
+		return numero + " " + (rue != null ? rue + " " : "") + (codePostal != null ? codePostal + " " : "")
+				+ (ville != null ? ville : " ");
 	}
 
 }

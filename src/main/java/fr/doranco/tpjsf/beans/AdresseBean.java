@@ -25,10 +25,6 @@ public class AdresseBean implements Serializable {
 		return adresseList;
 	}
 
-//	public static List<Adresse> getAdresselist() {
-//		return adresseList;
-//	}
-
 	public AdresseBean() {
 	}
 
