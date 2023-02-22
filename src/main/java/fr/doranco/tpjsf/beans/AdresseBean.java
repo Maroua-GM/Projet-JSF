@@ -14,7 +14,7 @@ import fr.doranco.tpjsf.entity.Adresse;
 @SessionScoped
 public class AdresseBean implements Serializable {
 
-	private short numero;
+	private String numero;
 	private String rue;
 	private String codePostal;
 	private String ville;
@@ -32,16 +32,16 @@ public class AdresseBean implements Serializable {
 		return Arrays.asList("paris", "lille", "lyon", "toulon");
 	}
 
-	public short getNumero() {
+	public String getRue() {
+		return rue;
+	}
+
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(short numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
-	}
-
-	public String getRue() {
-		return rue;
 	}
 
 	public void setRue(String rue) {
@@ -64,7 +64,7 @@ public class AdresseBean implements Serializable {
 		this.ville = ville;
 	}
 
-	public AdresseBean(short numero, String rue, String codePostal, String ville) {
+	public AdresseBean(String numero, String rue, String codePostal, String ville) {
 
 		this.numero = numero;
 		this.rue = rue;

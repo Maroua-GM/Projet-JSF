@@ -3,9 +3,12 @@ package fr.doranco.tpjsf.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 
+import fr.doranco.tpjsf.entity.Adresse;
 import fr.doranco.tpjsf.entity.User;
+import fr.doranco.tpjsf.utils.Dates;
 
 public class UserDao implements IUserDao {
 
@@ -36,7 +39,38 @@ public class UserDao implements IUserDao {
 		try {
 			connection = DorancoDataSource.getInstance().getConnexion();
 			// On ajoute l'utilisateur
-			String requete = "INSERT INTO `user` (`nom`, `prenom`, `sexe`, `email`, `date_naissance`, `qualite_service`, `telephone`, `disponible`, `fonction_Actuelle`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			String requete = "INSERT INTO `user` (`nom`, `prenom`, `sexe`, `email`, `date_naissance`, `qualite_service`, `telephone`, `disponible`, `fonction_Actuelle`,`password`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+			ps = connection.prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, user.getNom());
+			ps.setString(2, user.getPrenom());
+			ps.setString(3, user.getGenre());
+			ps.setString(4, user.getEmail());
+			ps.setString(5, Dates.dateToString(user.getDateNaissance()));
+			ps.setString(6, user.getNiveauDeService());
+			ps.setString(7, user.getTelephone());
+			ps.setString(8, user.getDisponible());
+			ps.setString(9, user.getFonctionActuelle());
+			ps.setString(10, user.getPassword());
+			ps.executeUpdate();
+			rs = ps.getGeneratedKeys();
+			if (rs != null && rs.next()) {
+				user.setId(rs.getInt(1));
+				ps.close();
+				rs.close();
+				String requete2 = "INSERT INTO `adresse` (`numero`, `rue`, `ville`, `codePostal`, `User_idUser`) VALUES (?, ?, ?, ?, ?)";
+				for (Adresse adresse : user.getAdresses()) {
+					ps = connection.prepareStatement(requete2);
+					ps.setString(1, adresse.getNumero());
+					ps.setString(2, adresse.getRue());
+					ps.setString(3, adresse.getVille());
+					ps.setString(4, adresse.getCodePostal());
+					ps.setInt(5, user.getId());
+					ps.executeUpdate();
+				}
+			}
+
+			return user;
+
 		} finally {
 			if (connection != null && !connection.isClosed()) {
 				connection.close();
@@ -48,7 +82,7 @@ public class UserDao implements IUserDao {
 				ps.close();
 			}
 		}
-		return null;
+
 	}
 
 	@Override

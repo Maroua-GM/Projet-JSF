@@ -2,7 +2,7 @@ package fr.doranco.tpjsf.entity;
 
 public class Adresse {
 
-	private short numero;
+	private String numero;
 	private String rue;
 	private String codePostal;
 	private String ville;
@@ -10,11 +10,12 @@ public class Adresse {
 	public Adresse() {
 	}
 
-	public short getNumero() {
+//changer numero
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(short numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 
@@ -42,7 +43,7 @@ public class Adresse {
 		this.ville = ville;
 	}
 
-	public Adresse(short numero, String rue, String codePostal, String ville) {
+	public Adresse(String numero, String rue, String codePostal, String ville) {
 
 		this.numero = numero;
 		this.rue = rue;

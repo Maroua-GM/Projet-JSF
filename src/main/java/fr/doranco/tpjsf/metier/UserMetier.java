@@ -17,8 +17,10 @@ public class UserMetier implements IUserMetier {
 
 	@Override
 	public User addUser(User user) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		user.setNom(user.getNom().trim().toUpperCase());
+		user.setPrenom(user.getPrenom().trim().substring(0, 1).toUpperCase()
+				.concat(user.getPrenom().trim().substring(1, user.getPrenom().trim().length()).toLowerCase()));
+		return userDao.addUser(user);
 	}
 
 	@Override

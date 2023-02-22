@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class Dates {
-	private static final String formatDate = "dd/MM/yyyy";
+	private static final String formatDate = "yyyy-MM-dd";
 
 	public static final Date stringToDate(String dateStr) throws Exception {
 

@@ -52,6 +52,12 @@
 						for="email" style="color:red" /></td>
 			</tr>
 			<tr>
+				<td>Password</td>
+				<td><h:inputSecret value="#{userBean.password}" required="true"
+						requiredMessage="password obligatoire" id="password"></h:inputSecret>
+					<h:message for="email" style="color:red" /></td>
+			</tr>
+			<tr>
 				<td>Qualité de service:</td>
 				<td><h:selectOneMenu value="#{userBean.niveauDeService}">
 						<f:selectItem itemLabel="Basic" itemValue="basic"></f:selectItem>
@@ -132,8 +138,8 @@
 	<!-- la liste des adresses ajoutés -->
 	<h:form>
 		<h4>la liste des adresses</h4>
-		<h:dataTable id="dataTable" value="#{adresseBean.adresseList}"
-			var="u" styleClass="order-table" headerClass="order-table-header"
+		<h:dataTable id="dataTable" value="#{adresseBean.adresseList}" var="u"
+			styleClass="order-table" headerClass="order-table-header"
 			rowClasses="order-table-odd-row,order-table-even-row">
 			<h:column>
 				<f:facet name="header">N°</f:facet>
@@ -196,16 +202,18 @@
 				<f:facet name="header">Niveau de service</f:facet>
 				<h:outputText value="#{o.niveauDeService}"></h:outputText>
 			</h:column>
-				<h:column>
+			<h:column>
 				<f:facet name="header">Adresse</f:facet>
-				<h:outputText value="#{userBean.get()}"></h:outputText>
+				<ui:repeat var="a" value="#{userBean.getAdresses()}">
+				#{a}<br></br>
+				</ui:repeat>
 			</h:column>
 			<h:column>
 				<f:facet name="header">Action</f:facet>
 				<h:commandButton value="Supprimer"
 					action="#{userBean.deleteAction(o)}" />
 			</h:column>
-			
+
 		</h:dataTable>
 	</h:form>
 

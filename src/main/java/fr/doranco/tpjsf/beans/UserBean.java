@@ -12,14 +12,18 @@ import javax.faces.bean.SessionScoped;
 
 import fr.doranco.tpjsf.entity.Adresse;
 import fr.doranco.tpjsf.entity.User;
+import fr.doranco.tpjsf.metier.UserMetier;
 
 @ManagedBean(name = "userBean")
 @SessionScoped
 public class UserBean implements Serializable {
 
+	UserMetier userMetier = new UserMetier();
+
 	@ManagedProperty(value = "#{adresseBean}")
 	private AdresseBean adresseBean;
 
+	private int id;
 	@ManagedProperty(value = "DUPOND")
 	private String nom;
 	@ManagedProperty(value = "Michel")
@@ -39,6 +43,7 @@ public class UserBean implements Serializable {
 	@ManagedProperty(value = "Non")
 	private String disponible;
 	private List<String> langageSouhaites;
+	private String password;
 
 //injection de l'adresse managed bean
 	public AdresseBean getAdresseBean() {
@@ -49,20 +54,26 @@ public class UserBean implements Serializable {
 		this.adresseBean = adresseBean;
 	}
 
-	private static final List<User> userList = new ArrayList<User>(Arrays.asList(
-//			new User("Benoit", "Leclerc", "1977/10/27", "homme", "benoit@doranco.fr", "medium", "adresse1",
-//					"0101010101", "agent", "oui"),
-//			new User("Paul", "Andrieux", "1965/06/12", "homme", "paul.andrieux@doranco.fr", "medium", "adresse1",
-//					"0101010101", "agent", "oui"),
-//			new User("Laura", "Treich", "1987/10/07", "femme", "laura.treich@doranco.fr", "medium", "adresse1",
-//					"0101010101", "agent", "oui"),
-//			new User("Nathalie", "Tango", "1980/07/17", "femme", "nathalie.tango@doranco.fr", "medium", "adresse1",
-//					"0101010101", "agent", "oui")
+	private static final List<User> userList = new ArrayList<User>(Arrays.asList());
 
-	));
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public List<User> getUserList() {
 		return userList;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public void addUser() {
@@ -70,17 +81,23 @@ public class UserBean implements Serializable {
 
 	}
 
-	public void inscription() {
+	public void inscription() throws Exception {
 
-//		User user = new User(this.nom, this.prenom, this.dateNaissance, this.genre, this.email, this.niveauDeService,
-//				this.telephone, this.fonctionActuelle, this.disponible);
-//
-//		for (Adresse adresse : adresseBean.getAdresseList()) {
-//			user.getAdresses().add(adresse);
-//			this.adresses.add(adresse);
-//		}
-//		userList.add(user);
+		User user = new User(this.nom, this.prenom, this.dateNaissance, this.genre, this.email, this.niveauDeService,
+				this.telephone, this.fonctionActuelle, this.disponible, this.password);
 
+		for (Adresse adresse : adresseBean.getAdresseList()) {
+			user.getAdresses().add(adresse);
+			this.adresses.add(adresse);
+		}
+		// demander la methode add User (la couche metier)
+		User user2 = userMetier.addUser(user);
+		userList.add(user);
+
+	}
+
+	public List<Adresse> getAdresses() {
+		return adresses;
 	}
 
 	public void deleteAction(User user) {
@@ -154,15 +171,6 @@ public class UserBean implements Serializable {
 
 	public void setDateNaissance(Date dateNaissance) {
 		this.dateNaissance = dateNaissance;
-	}
-
-	public String get() {
-		String chaine = "";
-		for (Adresse adresse : this.adresses) {
-			chaine += adresse + "\n\r";
-
-		}
-		return chaine;
 	}
 
 	public void setGenre(String genre) {
