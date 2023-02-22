@@ -19,8 +19,8 @@
 		<br></br><br></br>
 		
 		<h:outputText value="Password: " />
-		<h:inputText value="#{connection.password}" required="true"
-						requiredMessage="le mot de passe est obligatoire" id="password"></h:inputText>
+		<h:inputSecret value="#{connection.password}" required="true"
+						requiredMessage="le mot de passe est obligatoire" id="password"></h:inputSecret>
 					<h:message for="password" style="color:red"></h:message>
 		<br></br><br></br>
 		
