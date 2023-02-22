@@ -31,13 +31,22 @@ public class UserDao implements IUserDao {
 			throw new IllegalArgumentException("Un ou plusieurs parametres sont manguants!");
 		}
 		Connection connection = null;
-		ResultSet resultSet = null;
-		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		PreparedStatement ps = null;
 		try {
 			connection = DorancoDataSource.getInstance().getConnexion();
 			// On ajoute l'utilisateur
 			String requete = "INSERT INTO `user` (`nom`, `prenom`, `sexe`, `email`, `date_naissance`, `qualite_service`, `telephone`, `disponible`, `fonction_Actuelle`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		} finally {
+			if (connection != null && !connection.isClosed()) {
+				connection.close();
+			}
+			if (rs != null && !rs.isClosed()) {
+				rs.close();
+			}
+			if (ps != null && !ps.isClosed()) {
+				ps.close();
+			}
 		}
 		return null;
 	}
@@ -58,6 +67,47 @@ public class UserDao implements IUserDao {
 	public List<User> getUsers() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public User getUserByEmail(String email) throws Exception {
+		if (email == null || email.trim().isEmpty()) {
+			throw new IllegalArgumentException("il manque le email");
+		}
+		Connection connection = null;
+		ResultSet rs = null;
+		PreparedStatement ps = null;
+		User user = null;
+		// si l'email existe return true else false
+		try {
+			connection = DorancoDataSource.getInstance().getConnexion();
+			// requete
+			String requete = "select * from user where email=?";
+			ps = connection.prepareStatement(requete);
+			ps.setString(1, email);
+			ps.execute();
+			rs = ps.getResultSet();
+			// si l'email existe return User else null
+
+			if (rs != null && rs.next()) {
+				user = new User();
+				user.setEmail(email);
+				user.setPassword(rs.getString("password"));
+			}
+
+		} finally {
+			if (connection != null && !connection.isClosed()) {
+				connection.close();
+			}
+			if (rs != null && !rs.isClosed()) {
+				rs.close();
+			}
+			if (ps != null && !ps.isClosed()) {
+				ps.close();
+			}
+		}
+
+		return user;
 	}
 
 }

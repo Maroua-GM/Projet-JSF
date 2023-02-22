@@ -7,6 +7,6 @@
 <title>doranco </title>
 </head>
 <body>
-	<jsp:forward page="/faces/main4.xhtml"></jsp:forward>
+	<jsp:forward page="/faces/accueil.xhtml"></jsp:forward>
 </body>
 </html>

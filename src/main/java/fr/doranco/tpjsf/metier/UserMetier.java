@@ -39,4 +39,19 @@ public class UserMetier implements IUserMetier {
 		return null;
 	}
 
+	@Override
+	public User seConnecter(String email, String password) throws Exception {
+
+		User user = userDao.getUserByEmail(email);
+		if (user != null) {
+			// commparer les deux mots de passes
+			if (user.getPassword().equals(password)) {
+				return user;
+			}
+
+		}
+		return null;
+
+	}
+
 }

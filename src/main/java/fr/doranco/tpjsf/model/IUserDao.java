@@ -16,4 +16,6 @@ public interface IUserDao {
 
 	List<User> getUsers() throws Exception;
 
+	User getUserByEmail(String email) throws Exception;
+
 }

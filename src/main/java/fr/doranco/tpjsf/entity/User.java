@@ -6,6 +6,7 @@ import java.util.List;
 
 public class User {
 
+	private int id;
 	private String nom;
 	private String prenom;
 	private Date dateNaissance;
@@ -17,6 +18,7 @@ public class User {
 	private String fonctionActuelle;
 	private String disponible;
 	private List<String> langageSouhaites;
+	private String password;
 
 	public User() {
 		adresses = new ArrayList<Adresse>();
@@ -32,7 +34,7 @@ public class User {
 	}
 
 	public User(String nom, String prenom, Date dateNaissance, String genre, String email, String niveauDeService,
-			String telephone, String fonctionActuelle, String disponible) {
+			String telephone, String fonctionActuelle, String disponible, String password) {
 		adresses = new ArrayList<Adresse>();
 		langageSouhaites = new ArrayList<String>();
 		this.nom = nom;
@@ -44,6 +46,23 @@ public class User {
 		this.telephone = telephone;
 		this.fonctionActuelle = fonctionActuelle;
 		this.disponible = disponible;
+		this.password = password;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getTelephone() {

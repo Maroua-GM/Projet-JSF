@@ -72,14 +72,14 @@ public class UserBean implements Serializable {
 
 	public void inscription() {
 
-		User user = new User(this.nom, this.prenom, this.dateNaissance, this.genre, this.email, this.niveauDeService,
-				this.telephone, this.fonctionActuelle, this.disponible);
-
-		for (Adresse adresse : adresseBean.getAdresseList()) {
-			user.getAdresses().add(adresse);
-			this.adresses.add(adresse);
-		}
-		userList.add(user);
+//		User user = new User(this.nom, this.prenom, this.dateNaissance, this.genre, this.email, this.niveauDeService,
+//				this.telephone, this.fonctionActuelle, this.disponible);
+//
+//		for (Adresse adresse : adresseBean.getAdresseList()) {
+//			user.getAdresses().add(adresse);
+//			this.adresses.add(adresse);
+//		}
+//		userList.add(user);
 
 	}
 

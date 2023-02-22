@@ -15,4 +15,6 @@ public interface IUserMetier {
 
 	List<User> getUsers() throws Exception;
 
+	User seConnecter(String email, String password) throws Exception;
+
 }

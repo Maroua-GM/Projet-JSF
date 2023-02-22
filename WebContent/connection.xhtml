@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Page d'accueil</title>
+</head>
+<body>
+	
+	<h:form>
+		<h3>JSF Login Logout</h3>
+		<h:outputText value="Email: " />
+		<h:inputText value="#{connection.email}" required="true"
+						requiredMessage="l'email est obligatoire" id="email"></h:inputText>
+					<h:message for="email" style="color:red"></h:message>
+		<br></br><br></br>
+		
+		<h:outputText value="Password: " />
+		<h:inputText value="#{connection.password}" required="true"
+						requiredMessage="le mot de passe est obligatoire" id="password"></h:inputText>
+					<h:message for="password" style="color:red"></h:message>
+		<br></br><br></br>
+		
+		<h:commandButton action="#{connection.seConnecter()}"
+			value="Login"></h:commandButton>
+	</h:form>
+
+</body>
+</html>

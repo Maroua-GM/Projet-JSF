@@ -1,10 +1,7 @@
 package fr.doranco.tpjsf.model;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.Properties;
 
 public final class DorancoDataSource {
 	private static DorancoDataSource INSTANCE = null;
@@ -21,11 +18,11 @@ public final class DorancoDataSource {
 	}
 
 	public Connection getConnexion() throws Exception {
-		InputStream input = new FileInputStream("src/main/resources/application.properties");
-		Properties prop = new Properties();
-		prop.load(input);
-		Connection connection = DriverManager.getConnection(prop.getProperty("url"), prop.getProperty("login"),
-				prop.getProperty("password"));
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		String url = "jdbc:mysql://localhost:3306/doranco-bd";
+		String login = "root";
+		String password = "root";
+		Connection connection = DriverManager.getConnection(url, login, password);
 		return connection;
 	}
 
